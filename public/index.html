@@ -1,0 +1,33 @@
+<body>
+  <div id="root"></div>
+  <div class="starfield" id="starfield"></div>
+
+  <script>
+    function createStarfield() {
+      const starfield = document.getElementById('starfield');
+      const numStars = 200;
+
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.width = Math.random() * 3 + 1 + 'px';
+        star.style.height = star.style.width;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        starfield.appendChild(star);
+      }
+
+      for (let i = 0; i < 5; i++) {
+        const shootingStar = document.createElement('div');
+        shootingStar.className = 'shooting-star';
+        shootingStar.style.top = Math.random() * 50 + '%';
+        shootingStar.style.animationDelay = Math.random() * 10 + 's';
+        shootingStar.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        starfield.appendChild(shootingStar);
+      }
+    }
+    createStarfield();
+  </script>
+</body>

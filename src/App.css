@@ -1,0 +1,295 @@
+/* Global + simple reset */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  height: 100vh; /* full height */
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+
+  
+  color: #e9f7ff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Starry animated background */
+.space-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(#ffffff11 1px, transparent 1px),
+    radial-gradient(#ffffff11 1px, transparent 1px);
+  background-position: 0 0, 50px 50px;
+  background-size: 100px 100px, 120px 120px;
+  animation: twinkle 8s linear infinite;
+  opacity: 0.9;
+  filter: blur(0.6px);
+}
+@keyframes twinkle {
+  0% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.9; }
+}
+
+/* Layout */
+.app-root { position: relative; min-height: 100vh; z-index: 1; display: flex; align-items: center; justify-content: center; padding: 28px; }
+
+/* Menu */
+.menu { text-align: center; max-width: 1000px; width: 100%; }
+.title {
+  font-size: 36px;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  text-shadow: 0 3px 18px #00f5ff44;
+}
+.cards-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+
+/* Card */
+.game-card {
+  width: 260px;
+  min-height: 320px;
+  border-radius: 18px;
+  padding: 18px;
+  color: #eafdff;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+  backdrop-filter: blur(6px);
+}
+.game-card .card-inner { display: flex; flex-direction: column; gap: 12px; height: 100%; justify-content: center; align-items: center; }
+.level-circle { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); box-shadow: 0 6px 22px rgba(0,0,0,0.4) inset; margin-bottom: 8px; }
+.card-title { text-transform: capitalize; font-size: 22px; margin: 0; text-shadow: 0 2px 8px #000; }
+.card-desc { font-size: 14px; opacity: 0.95; margin: 0 6px 8px; text-align: center; }
+
+/* glass button */
+.glass-btn {
+  padding: 12px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  color: #e8ffff;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(0,245,255,0.08);
+  font-weight: 600;
+}
+.glass-btn.small { padding: 8px 14px; border-radius: 10px; font-size: 14px; }
+
+/* Play button glow effect */
+.play-btn,
+.glass-btn {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.play-btn:hover,
+.glass-btn:hover {
+  box-shadow: 0 12px 40px rgba(0,245,255,0.18), 0 0 30px rgba(0,245,255,0.08);
+}
+
+/* Tutorial */
+.tutorial-wrap { display: flex; align-items: center; justify-content: center; padding: 36px; min-height: 70vh; }
+.tutorial-box { width: 90%; max-width: 900px; background: rgba(255,255,255,0.02); border-radius: 14px; padding: 18px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 8px 36px rgba(0,0,0,0.6); }
+.tutorial-title { margin: 6px 0 12px; font-size: 20px; text-align: center; }
+.tutorial-video { width: 100%; border-radius: 10px; border: 2px solid rgba(0,245,255,0.12); box-shadow: 0 10px 40px rgba(0,245,255,0.05); }
+.tutorial-actions { margin-top: 10px; display: flex; justify-content: center; gap: 12px; }
+
+/* Puzzle screen */
+.puzzle-screen { width: 100%; max-width: 760px; margin: 18px auto; padding: 12px; background: rgba(0,0,0,0.14); border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); }
+.puzzle-header { display:flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.puzzle-header h2 { margin:0; font-size: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+.puzzle-grid {
+  display: grid;
+  gap: 6px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  padding: 8px;
+  border-radius: 10px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+/* ensure tiles are nicely sized and square */
+.puzzle-grid .puzzle-tile {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* aspect ratio 1:1 via padding trick */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px;
+  border: 2px solid rgba(0,245,255,0.08);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.6), 0 0 12px rgba(0,245,255,0.06);
+  cursor: grab;
+  overflow: hidden;
+}
+
+/* because we used padding-top for square, place the bg in an absolutely positioned pseudo element */
+.puzzle-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+
+/* footer & solved banner */
+.puzzle-footer { margin-top: 12px; display:flex; justify-content:center; align-items:center; gap:12px; }
+.solved-banner { background: linear-gradient(90deg,#00ffb3,#00b3ff); color: #001; padding: 8px 12px; border-radius: 10px; font-weight: 700; box-shadow: 0 8px 30px rgba(0,179,255,0.12); }
+.progress { opacity: 0.9; font-size: 14px; color: #a8f0ff; }
+
+/* small helper */
+.hint { margin-top: 18px; color: #bfefff; opacity: 0.9; font-size: 14px; }
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.hint-hand {
+  pointer-events: none;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hint-hand {
+  pointer-events: none;
+}
+
+.progress-bar-container {
+  width: 80%;
+  margin: 0 auto;
+}
+/* Global body styling */
+body {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  color: #e9f7ff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* prevent scrollbars for starfield */
+}
+
+/* 🌌 Starfield Background Layer */
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* stays behind game UI */
+  background: radial-gradient(
+    ellipse at center,
+    #1a1a2e 0%,
+    #16213e 50%,
+    #0a0a0f 100%
+  );
+  overflow: hidden;
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Shooting stars */
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: linear-gradient(45deg, #fff, #64ffda);
+  border-radius: 50%;
+  animation: shoot 4s linear infinite;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(-100px) translateY(100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw) translateY(-100px);
+    opacity: 0;
+  }
+}
+/* 🚀 Upgraded Game Card Hover Glow */
+.game-card {
+  width: 260px;
+  min-height: 320px;
+  border-radius: 18px;
+  padding: 18px;
+  color: #eafdff;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 245, 255, 0.12);
+}
+
+/* 🌌 Animated glow border */
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, #00f5ff, #ff00c8, #00ff9d, #00f5ff);
+  background-size: 400% 400%;
+  animation: cardGlow 8s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes cardGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 💫 Neon hover aura + tilt */
+.game-card:hover {
+  transform: perspective(800px) rotateX(6deg) rotateY(-6deg) scale(1.05);
+  box-shadow: 
+    0 0 30px rgba(0, 245, 255, 0.3),
+    0 0 60px rgba(255, 0, 200, 0.25),
+    0 0 90px rgba(0, 255, 157, 0.2);
+}
+
+/* inner content stays centered */
+.game-card .card-inner {
+  position: relative;
+  z-index: 1;
+}
+

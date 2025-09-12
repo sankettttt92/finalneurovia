@@ -1,0 +1,182 @@
+/* Card.css */
+
+/* Container & general styling */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle at top, #1a1a2e, #162447);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #f5f5f5;
+  text-shadow: 0 0 10px #00c6ff, 0 0 20px #0072ff;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #00c6ff, 0 0 10px #0072ff; }
+  100% { text-shadow: 0 0 20px #00c6ff, 0 0 40px #0072ff; }
+}
+
+/* Level Selector */
+.level-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.play-now-btn {
+  margin-left: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.play-now-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* Grid styling */
+.grid {
+  display: grid;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Dynamic grid columns based on level */
+.grid-2 { grid-template-columns: repeat(2, 120px); }
+.grid-3 { grid-template-columns: repeat(3, 100px); }
+.grid-4 { grid-template-columns: repeat(4, 90px); }
+
+/* Flip card styling */
+.card {
+  perspective: 1000px;
+  cursor: pointer;
+  width: 100%;
+  padding-bottom: 100%; /* Square cards */
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.6s ease;
+}
+
+/* Front of card */
+.card-front {
+  background: linear-gradient(145deg, #00c6ff, #0072ff);
+  color: #fff;
+}
+
+/* Back of card */
+.card-back {
+  background: linear-gradient(145deg, #ff6a00, #ee0979);
+  transform: rotateY(180deg);
+  font-size: 2rem;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Progress bar (optional) */
+.progress-container {
+  width: 80%;
+  height: 20px;
+  background: #222;
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+/* Game Over Modal */
+.game-over-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 20, 40, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  z-index: 100;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  animation: popup 0.5s ease forwards;
+}
+
+@keyframes popup {
+  0% { transform: translate(-50%, -60%) scale(0.8); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.restart-btn {
+  margin-top: 20px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #ff6a00, #ee0979);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restart-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* Confetti will be handled by react-confetti */
