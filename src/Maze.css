@@ -1,0 +1,429 @@
+/* ===============================
+   🌌 3D Pastel Space Maze Design
+   with Dashboard-Style Left Panel
+================================= */
+
+.maze-wrapper {
+  display: flex;
+  justify-content: flex-start; /* align from left */
+  gap: 50px;
+  font-family: 'Arial', sans-serif;
+  background: transparent;
+  color: #fff;
+  padding: 40px;
+  min-height: 100vh;
+  margin-top: -30px;
+}
+
+/* ===============================
+   🌟 Stats Panel (Dashboard Left)
+================================= */
+.maze-right {
+  order: 1; /* appear first (left) */
+  margin-left: -40px;
+  flex: 1;
+  max-width: 300px;
+  height: 900px;
+  background: rgba(255, 255, 255, 0.12); /* glass effect */
+  backdrop-filter: blur(15px) saturate(140%);
+ margin-top: -10px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+   🚀 Unique Dashboard Panel (Left)
+================================= */
+
+.maze-right {
+  flex: 1;
+  max-width: 300px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px) saturate(160%);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  animation: fadeSlideIn 0.8s ease;
+}
+
+/* Heading with funky gradient */
+.maze-right h3 {
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 3px rgba(255,255,255,0.2);
+}
+
+/* Stat lines */
+.maze-right p {
+  font-size: 17px;
+  font-weight: 600;
+  color: #ffe9a7;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #3a6186, #89253e);
+  box-shadow: inset 2px 2px 6px rgba(0,0,0,0.2), 
+              inset -2px -2px 6px rgba(255,255,255,0.2);
+  transition: transform 0.2s ease;
+}
+
+.maze-right p:hover {
+  transform: scale(1.05);
+}
+
+/* Message box */
+.maze-right .message {
+  background: linear-gradient(145deg, #fdfbfb, #ebedee);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #444;
+  min-height: 60px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+
+}
+
+/* Reset button */
+.maze-right .reset-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.maze-right .reset-btn:hover {
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+/* 🎬 Animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 200, 250, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 180, 200, 0.9);
+  }
+}
+
+
+.maze-right .reset-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(145deg, #56c6d8, #197a92);
+}
+
+/* ===============================
+   🌌 Maze Grid (Right Side)
+================================= */
+.maze-left {
+  order: 2; /* appear after stats */
+  flex: 2;
+  text-align: center;
+}
+
+.maze-left h2 {
+  font-size: 36px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffd27f, #88ffff, #ff9efc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Grid styling */
+.grid { 
+  display: grid; 
+  gap: 40px; /* more space between cells */
+  perspective: 600px; /* 3D effect */
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Cells */
+.cell { 
+  width: 60px; 
+  height: 60px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 28px; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #2a2a5e, #1f1f4a);
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.25), -5px -5px 10px rgba(255,255,255,0.05);
+}
+
+/* Walls */
+.wall { 
+  background: linear-gradient(145deg, #7a67d2, #5c4db2); 
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.35), -4px -4px 8px rgba(255,255,255,0.06);
+}
+
+/* Player */
+.player { 
+  background: linear-gradient(135deg, #64dfff, #88ffff); 
+  border-radius: 50%; 
+  width: 50px; 
+  height: 50px; 
+  animation: glowPlayer 3s infinite alternate;
+  box-shadow: 0 0 8px rgba(100, 223, 255, 0.35);
+}
+
+/* Key/Star */
+.key { 
+  color: #ffd27f; 
+  font-size: 36px; 
+  animation: pulseKey 3s infinite;
+}
+
+/* Distracting objects */
+.distract { 
+  color: #ff8c8c; 
+  font-size: 36px;
+  animation: wiggle 2s infinite alternate; 
+  text-shadow: 0 0 3px #ff8c8c, 0 0 8px #ffa0a0;
+}
+
+/* Exit/Door */
+.exit { 
+  background: linear-gradient(145deg, #a0f2a0, #70d070); 
+  border-radius: 14px; 
+  width: 55px; 
+  height: 55px; 
+  box-shadow: 0 4px 10px rgba(160, 242, 160, 0.4), 0 -4px 10px rgba(112, 208, 112, 0.4);
+  animation: doorGlow 4s infinite alternate;
+}
+
+/* ===============================
+   🌟 Pop-up Styles
+================================= */
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ff6ec4, #7873f5, #42e695); /* unique gradient */
+  color: #ffffff; /* text color contrasting the gradient */
+  padding: 35px 45px;
+  z-index: 1000;
+  border-radius: 22px;
+  font-size: 20px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35); /* soft dark shadow for depth */
+  animation: popupBounce 0.5s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  backdrop-filter: blur(10px); /* subtle glassy effect */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* slight border for style */
+}
+
+/* Optional: bounce animation */
+@keyframes popupBounce {
+  0% {
+    transform: translate(-50%, -60%) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -30%) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Button inside popup (optional) */
+.popup button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: linear-gradient(135deg, #f83600, #f9d423);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.popup button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.popup button { 
+  margin-top: 18px; 
+  padding: 12px 25px; 
+  font-size: 18px; 
+  cursor: pointer; 
+  border-radius: 6px; 
+  border: none; 
+  background-color: #ffeaa7; 
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.popup button:hover { 
+  background-color: #ffd166; 
+  transform: scale(1.05);
+}
+
+/* ===============================
+   🌟 Animations
+================================= */
+@keyframes glowPlayer { 
+  0% { box-shadow: 0 0 5px rgba(100, 223, 255, 0.25); } 
+  100% { box-shadow: 0 0 12px rgba(100, 223, 255, 0.35); } 
+}
+
+@keyframes pulseKey { 
+  0% { transform: scale(1); } 
+  50% { transform: scale(1.2); } 
+  100% { transform: scale(1); } 
+}
+
+@keyframes wiggle { 
+  0% { transform: rotate(-6deg); } 
+  50% { transform: rotate(6deg); } 
+  100% { transform: rotate(-6deg); } 
+}
+
+@keyframes doorGlow { 
+  0% { box-shadow: 0 4px 8px rgba(160, 242, 160, 0.3); } 
+  100% { box-shadow: 0 4px 14px rgba(160, 242, 160, 0.45); } 
+}
+
+@keyframes popupBounce { 
+  0% { transform: translate(-50%, -60%) scale(0); } 
+  100% { transform: translate(-50%, -50%) scale(1); } 
+}
+/* ===============================
+   🌟 Additional Stats: Score & Time
+================================= */
+.maze-right .score,
+.maze-right .time {
+  font-size: 18px;
+  font-weight: 700;
+  color: #7fffd4; /* aquamarine glow */
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #1f1f4a, #2a2a5e);
+  box-shadow: 0 0 8px #7fffd4, 0 0 15px #56f0e0 inset;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.maze-right .score:hover,
+.maze-right .time:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #7fffd4, 0 0 20px #56f0e0 inset;
+}
+
+/* ===============================
+   🌟 Pop-up: Score & Time
+================================= */
+.popup .score,
+.popup .time {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00bfff; /* neon blue glow */
+  margin: 10px 0;
+  text-shadow: 0 0 6px #00bfff, 0 0 12px #33ccff;
+}
+
+.popup .score::before {
+  content: "⭐ ";
+}
+
+.popup .time::before {
+  content: "⏱️ ";
+}
+/* ===============================
+   ⚠️ Reminder Popup
+================================= */
+.reminder-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(7, 2, 85, 0.95);
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.reminder-popup h3 {
+  margin-bottom: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 22px;
+}
+
+.reminder-popup p {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.popup-buttons button {
+  padding: 8px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.popup-buttons button:first-child {
+  background: #e74c3c;
+  color: white;
+}
+
+.popup-buttons button:last-child {
+  background: #27ae60;
+  color: white;
+}
+
+.popup-buttons button:hover {
+  transform: scale(1.05);
+}
+

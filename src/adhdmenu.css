@@ -1,4 +1,6 @@
-/* Fullscreen video background container */
+/* ===============================
+   🌌 Fullscreen Video Background
+================================= */
 .adhd-background {
   position: relative;
   width: 100%;
@@ -17,14 +19,14 @@
   z-index: 1;
 }
 
-/* Black overlay for readability */
+/* Dark overlay for readability */
 .video-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5); /* Semi-transparent black */
+  background: rgba(0,0,0,0.5);
   z-index: 2;
 }
 
@@ -57,62 +59,119 @@
   justify-content: center;
 }
 
-/* Individual card */
+/* ===============================
+   🃏 Puzzle / Flip Cards Styling
+================================= */
 .puzzle-card {
-  background: rgba(255, 255, 255, 0.1); /* Glass effect */
-  backdrop-filter: blur(10px);
+  position: relative;
+  background: rgba(255, 255, 255, 0.15); /* transparent frosted glass */
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border-radius: 20px;
-  padding: 30px;
-  width: 300px;
-  height: 500px ;
-  text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  width: 400px;
+  height: 580px;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  /* soft shadow */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* important for shine animation */
 }
 
-/* Hover animation for card */
 .puzzle-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
-/* Card heading */
+/* Shine effect using ::before */
+.puzzle-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  transform: skewX(-20deg);
+}
+
+/* Trigger animation on hover */
+.puzzle-card:hover::before {
+  animation: shine 1.2s ease forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+/* -------------------- Card Image -------------------- */
+.puzzle-card .card-image {
+  width: 90%;
+  height: auto;
+  max-height: 300px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+/* -------------------- Card Title -------------------- */
 .puzzle-card h2 {
   font-size: 1.8rem;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 700;
+  background: linear-gradient(120deg, rgb(170, 236, 209), rgba(241, 241, 146, 0.7));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Card text */
-.puzzle-card p {
+/* -------------------- Card Subtitle -------------------- */
+.puzzle-card .card-subtitle {
   font-size: 1rem;
+  text-align: center;
   margin-bottom: 20px;
+  font-weight: 500;
+  color: #eaeaea;
+  letter-spacing: 0.5px;
 }
 
-/* Play Now button */
-.play-btn {
-  padding: 10px 25px;
+/* -------------------- Play Button -------------------- */
+.puzzle-card .play-btn {
+  margin-top: -20px;
+  padding: 12px 25px;
   font-size: 1rem;
   font-weight: bold;
-  color: black; /* Black text */
-  background: linear-gradient(90deg, #7ee8fa, #80ff72, #ffd86b);
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  color: #000; /* Black text */
+  background: linear-gradient(90deg, #7ee8fa, #80ff72, #ffd86b);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover animation for button */
-.play-btn:hover {
+.puzzle-card .play-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-}
-.card-image {
-  width: 100%;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
-/* Card subtitle (learn-play-focus) */
+/* Subtitle text */
 .card-subtitle {
   font-size: 1rem;
   color: #f0f0f0;
@@ -120,6 +179,10 @@
   font-weight: 500;
   letter-spacing: 1px;
 }
+
+/* ===============================
+   🔹 Top Left Heading
+================================= */
 .top-left-heading {
   position: absolute;
   top: 10px;
@@ -132,8 +195,12 @@
   background: linear-gradient(90deg, #7ee8fa, #80ff72, #ffd86b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  z-index: 4; /* Above overlay and video */
+  z-index: 4;
 }
+
+/* ===============================
+   🔹 Level Popup (Glass Effect)
+================================= */
 .level-popup {
   position: fixed;
   top: 0;
@@ -148,13 +215,24 @@
 }
 
 .popup-content {
-  background: #111;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+
   padding: 30px 40px;
-  border-radius: 12px;
   text-align: center;
   color: #fff;
+  max-width: 400px;
+  width: 90%;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
+/* ===============================
+   🔹 Level Buttons
+================================= */
 .level-buttons button {
   margin: 10px;
   padding: 12px 20px;
@@ -162,16 +240,17 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  background: #00c6ff;
+  background: linear-gradient(90deg, #7ee8fa, #80ff72, #ffd86b);
   color: #000;
   transition: 0.3s;
 }
 
 .level-buttons button:hover {
-  background: #0072ff;
-  color: #fff;
+  background: linear-gradient(90deg, #80ff72, #7ee8fa, #ffd86b);
+  color: #111;
 }
 
+/* Close button */
 .close-btn {
   margin-top: 20px;
   padding: 10px 20px;
@@ -180,4 +259,48 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  background: #e60000;
+}
+
+/* ===============================
+   🔹 Card Points List
+================================= */
+.card-points {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #f5f5f5;
+}
+
+.card-points li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.go-home-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.go-home-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
