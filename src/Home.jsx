@@ -6,7 +6,12 @@ const text =
   "Blast off into space, one puzzle at a time. The galaxy is waiting for your next move.";
 
 function Home() {
-     const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  let goToPage = () => {
+    window.location.href = "http://localhost:8080"; // your link
+  };
+
   return (
     <div className="background">
       <h1 className="intro-title">Welcome to Cosmic Quest</h1>
@@ -18,9 +23,14 @@ function Home() {
         ))}
       </p>
 
-      {/* 🚀 New Button */}
-     <button className="start-btn" onClick={() => navigate("/adhdmenu")}>
+      {/* 🚀 Start Button */}
+      <button className="start-btn" onClick={() => navigate("/adhdmenu")}>
         Start Space Adventure
+      </button>
+
+      {/* 🌌 Gradient Button with Arrow */}
+      <button className="gradient-btn" onClick={goToPage}>
+        Go to Page <span className="arrow">➜</span>
       </button>
     </div>
   );
